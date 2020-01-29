@@ -18,10 +18,6 @@ public class OnHealthChangedAudioMix : MonoBehaviour
 
     public float animationDuration = 1f;
 
-    void Awake()
-    {
-
-    }
     private void OnEnable()
     {
         _healthVariable.SubscribeOnValueChanged(ChangePitchVolume);
@@ -35,7 +31,7 @@ public class OnHealthChangedAudioMix : MonoBehaviour
     private void ChangePitchVolume(int healthPercent)
     {
         healthPercent = Mathf.Clamp(healthPercent, 0, 100);
-        float intensity = OnHealthChangedBase.GetIntensity(MinPitch, MaxPitch, healthPercent / 100f);
+        float intensity = OnHealthChangedHelper.GetIntensity(MinPitch, MaxPitch, healthPercent / 100f);
         audioMixer.DOSetFloat("VoicePitch", intensity, animationDuration);
     }
 
