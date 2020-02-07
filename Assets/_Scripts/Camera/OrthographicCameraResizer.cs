@@ -14,7 +14,7 @@ namespace Drolegames.Tools
 
         private Camera _camera;
 
-        private void Awake()
+        private void Start()
         {
             UpdateFromDefault();
         }

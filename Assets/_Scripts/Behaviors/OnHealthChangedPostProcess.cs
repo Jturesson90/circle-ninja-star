@@ -30,7 +30,6 @@ public class OnHealthChangedPostProcess : MonoBehaviour
         _vignetteStartIntensity = _vignette.intensity;
         _colorGradingStartSaturation = _colorGrading.saturation;
     }
-
     void OnEnable()
     {
         _health.SubscribeOnValueChanged(OnValueChanged);
@@ -46,16 +45,19 @@ public class OnHealthChangedPostProcess : MonoBehaviour
         value = Mathf.Clamp(value, 0, 100);
         float invertPercent = (100 - value) / 100f;
 
-        float vignetteIntensity = OnHealthChangedHelper.GetIntensity(_vignetteStartIntensity, _vignetteMaxIntensity, invertPercent);
+        float vignetteIntensity = OnHealthChangedBase.GetIntensity(_vignetteStartIntensity, _vignetteMaxIntensity, invertPercent);
         if (_vignette)
         {
             DOTween.To(() => _vignette.intensity.value, x => _vignette.intensity.value = x, vignetteIntensity, 0.5f);
         }
 
-        float colorGradingSaturation = OnHealthChangedHelper.GetIntensity(_colorGradingStartSaturation, _colorGradingMaxSaturation, invertPercent);
+        float colorGradingSaturation = OnHealthChangedBase.GetIntensity(_colorGradingStartSaturation, _colorGradingMaxSaturation, invertPercent);
         if (_colorGrading)
         {
             DOTween.To(() => _colorGrading.saturation.value, x => _colorGrading.saturation.value = x, colorGradingSaturation, 0.5f);
         }
+
     }
+
+
 }
